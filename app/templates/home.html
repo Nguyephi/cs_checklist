@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='container'>
+    <div class="text-center d-flex justify-content-center flex-column">
+        <div class="d-flex justify-content-center">
+            <div style='width: 50%;'>
+                {% include 'HomePage/currentUserCard.html' %}
+            </div>
+        </div>
+        {% include 'HomePage/checkList.html' %}
+
+        <a href="{{ url_for('logout') }}">Log out</a>
+    </div>
+</div>
+{% endblock content %}

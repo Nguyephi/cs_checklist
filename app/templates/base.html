@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>CoderSchool Checklist</title>
+    <meta name="description" content="The HTML5 Herald" />
+    <meta name="author" content="SitePoint" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link href="{{ url_for('static' , filename='bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static' , filename='mdb.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static' , filename='style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+    {% if current_user.is_authenticated %}
+    {% include 'includes/_navBar.html' %}
+    <div style="margin-top: 40px">
+
+        {% else %}
+        <div style="margin-top: 30px;">
+            {% endif %}
+            {% block content %}
+            {% endblock content %}
+        </div>
+        <script type="text/javascript" src="{{ url_for('static' , filename='jquery-3.4.1.min.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static' , filename='popper.min.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static' , filename='bootstrap.min.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static' , filename='mdb.min.js')}}"></script>
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+<div>
+    {% if not current_user.is_authenticated %}
+    <button type='button' class='loginBtn loginBtn--facebook'
+        onclick="window.location.href='{{ url_for('facebook.login') }}';">Login
+        with
+        Facebook</button>
+    {% endif %}
+</div>
