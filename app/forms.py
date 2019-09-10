@@ -26,9 +26,10 @@ class SignUpForm(FlaskForm):
 
 
 class SignInForm(FlaskForm):
-    name = StringField('Username', validators=[
-        DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    name = StringField('name', validators=[InputRequired(
+        message='Sign in with your registered name.')])
+    password = PasswordField('Password', validators=[
+                             InputRequired(message='Incorrect password.')])
     submit = SubmitField('Signin')
 
 
@@ -44,6 +45,6 @@ class EditProfile(FlaskForm):
 
 
 class AddTodo(FlaskForm):
-    title = StringField('title', validators=[InputRequired()])
-    description = StringField('description')
-    submit = SubmitField('Add todo')
+    task = StringField('task', validators=[InputRequired()])
+    subTask = StringField('subTask')
+    submit = SubmitField('Add task')

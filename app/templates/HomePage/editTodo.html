@@ -1,0 +1,45 @@
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="peach-gradient modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method='POST' style="width:45%">
+                {{ edit_form.hidden_tag() }}
+
+                <div class="md-form">
+                    <label style='color:orangered' for="orangeForm-name">Title</label>
+                    {% if edit_form.title.errors %}
+                    {{ edit_form.title(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in edit_form.title.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ edit_form.title(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                    {% endif %}
+                </div>
+                <div class="md-form">
+                    <label style='color:orangered' for="orangeForm-name">Description</label>
+                    {% if edit_form.description.errors %}
+                    {{ edit_form.description(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in edit_form.description.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ edit_form.description(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                    {% endif %}
+                </div>
+                <div style="float: right;">
+                    {{ edit_form.submit(style='float: right;', class='mt-4 btn btn-deep-orange black-text') }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

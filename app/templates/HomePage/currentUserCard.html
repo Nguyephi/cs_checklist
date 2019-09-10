@@ -2,12 +2,18 @@
     <div class="card-up indigo lighten-1 d-flex">
         <div style='display: flex;margin-left: 20px;'>
             <div class="avatar mx-auto white">
+                {% if provider.provider == 'facebook' or provider.provider == 'github' %}
                 <img height='100px' width='100px' src="{{current_user.profile_pic}}" class="rounded-circle"
-                    alt="woman avatar">
+                    alt="{{current_user.name}}">
+                {% else %}
+                <img height='100px' width='100px'
+                    src="{{url_for('static', filename='img/' + current_user.profile_pic) }}" class="rounded-circle"
+                    alt="{{current_user.name}}">
+                {% endif %}
             </div>
         </div>
         <div class="card-body">
-            <h4 class="card-title">{{current_user.name}}</h4>
+            <h4 class="card-title">{{current_user.name.capitalize()}}</h4>
             <hr>
             <p><i class="fas fa-quote-left"></i> I'm here to code and chew bubblegum and I'm fresh out
                 of bubblegum

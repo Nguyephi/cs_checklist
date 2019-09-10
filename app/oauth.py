@@ -92,7 +92,6 @@ def facebook_logged_in(blueprint, token):
 
     info = resp.json()
     user_id = info["id"]
-    print('========================', info)
     # Find this OAuth token in the database, or create it
     query = OAuth.query.filter_by(
         provider=blueprint.name, provider_user_id=user_id)

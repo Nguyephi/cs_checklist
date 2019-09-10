@@ -1,33 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<!-- html not needed!!!! -->
 {% if current_user.is_authenticated %}
 <a href="{{ url_for('logout') }}">Log out</a>
-{% else %}
-<!-- sign up -->
-<div class='row'>
-    <div class='col-md-6'>
-        hello
-    </div>
-    <div class='col-md-6 container'>
-        <div style="width:90%; margin-bottom: 50px;" class="card">
-            <div style='display: flex;justify-content: center;' class="card-body p-0">
-                {% include 'signInForm.html' %}
-            </div>
-            <div class="text-center mb-2">
-                <div>
-                    <p>Don't have an account? <a href="" class="mb-4" data-toggle="modal"
-                            data-target="#modalRegisterForm">Sign
-                            up today</a></p>
-                </div>
-                <hr>
-                {% include 'LoginButtons/facebookButton.html' %}
-                {% include 'LoginButtons/githubButton.html' %}
-            </div>
-        </div>
-    </div>
-    {% endif %}
-</div>
-<div>{% include 'signUpForm.html' %}</div>
+
+{% endif %}
 
 {% endblock content %}

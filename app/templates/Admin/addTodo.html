@@ -1,0 +1,40 @@
+<div class='w-50'>
+    <form method='POST'>
+        {{ todo_form.hidden_tag() }}
+        <div class="md-form">
+            <label style='color:red' for="form-name">Task</label>
+            {% if todo_form.task.errors %}
+            {{ todo_form.task(type="text", id="form-name", class='todoInput form-control is-invalid') }}
+            <div class="invalid-feedback">
+                {% for error in todo_form.task.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ todo_form.task(type="text", id="form-name", class='todoInput form-control validate') }}
+            {% endif %}
+        </div>
+        <div class="md-form">
+            <label style='color:red' for="form-subTask-1">Sub Task</label>
+            {% if todo_form.subTask.errors %}
+            {{ todo_form.subTask(type="text", id="form-subTask-1", class='todoInput form-control is-invalid') }}
+            <div class="invalid-feedback">
+                {% for error in todo_form.subTask.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ todo_form.subTask(type="text", id="form-subTask-1", class='todoInput form-control validate') }}
+            {% endif %}
+        </div>
+        <div id="new-subTask-1"></div>
+        <div>
+            <button id='add-subTask' onclick="addSubTask()" type='button' class='edit'><small>add sub
+                    task</small></button>
+            <button type='button' class='delete'><small>remove sub task</small></button>
+        </div>
+        <div>
+            {{ todo_form.submit(class='mt-4 btn btn-color') }}
+        </div>
+    </form>
+</div>

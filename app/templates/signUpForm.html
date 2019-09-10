@@ -1,80 +1,100 @@
-<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="peach-gradient modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class='row'>
+    <div class='col-md-6 pr-0'>
+        <div class="mb-5">
+            {% include 'about.html' %}
+        </div>
+    </div>
+    <div class='col-md-6 container'>
+        <div style="width:90%; margin-bottom: 50px;" class="card">
+            <div style='display: flex;justify-content: center;' class="card-body p-0">
+
+                <form method='POST' style="width:45%">
+                    <p class="h4 text-center pt-4">Sign Up</p>
+                    <hr>
+                    {{ signup_form.hidden_tag() }}
+                    <div class="md-form mb-0">
+                        <i class="fas fa-user prefix red-text"></i>
+                        <label style='color:red' for="form-name">Your name</label>
+                        {% if signup_form.name.errors %}
+                        {{ signup_form.name(type="text", id="form-name", class='todoInput mb-1 form-control is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in signup_form.name.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ signup_form.name(type="text", id="form-name", class='todoInput mb-1 form-control validate') }}
+                        {% endif %}
+                    </div>
+
+                    <div class="md-form mb-0">
+                        <i class="fas fa-envelope prefix red-text"></i>
+                        <label style='color:red' for="form-name">Your email</label>
+                        {% if signup_form.email.errors %}
+                        {{ signup_form.email(type="text", id="form-name", class='todoInput mb-1 form-control is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in signup_form.email.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ signup_form.email(type="text", id="form-name", class='todoInput mb-1 form-control validate') }}
+                        {% endif %}
+                    </div>
+
+                    <div class="md-form mb-0">
+                        <i class="fas fa-lock prefix red-text"></i>
+                        <label style='color:red' for="form-name">Your password</label>
+                        {% if signup_form.password.errors %}
+                        {{ signup_form.password(type="password", id="form-name", class='todoInput mb-1 form-control is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in signup_form.password.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ signup_form.password(type="password", id="form-name", class='todoInput mb-1 form-control validate') }}
+                        {% endif %}
+                    </div>
+
+                    <div class="md-form mb-0">
+                        <i class="fas fa-lock prefix red-text"></i>
+                        <label style='color:red' for="form-name">Confirm password</label>
+                        {% if signup_form.pass_confirm.errors %}
+                        {{ signup_form.pass_confirm(type="password", id="form-name", class='todoInput form-control is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in signup_form.pass_confirm.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ signup_form.pass_confirm(type="password", id="form-name", class='todoInput form-control validate') }}
+                        {% endif %}
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button style='width: 210px;text-align: center;' type='submit'
+                            class='loginBtn loginBtn--coderschool'
+                            onclick="window.location.href='{{ url_for('sign_up') }}';">Sign up</button>
+                    </div>
+                </form>
             </div>
-            <form method='POST' style="width:45%">
-                {{ signup_form.hidden_tag() }}
-
-                <div class="md-form mb-0">
-                    <i class="fas fa-user prefix orange-text"></i>
-                    <label style='color:orangered' for="orangeForm-name">Your name</label>
-                    {% if signup_form.name.errors %}
-                    {{ signup_form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
-                    <div class="invalid-feedback">
-                        {% for error in signup_form.name.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ signup_form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
-                    {% endif %}
+            <div class="text-center mb-2">
+                <div>
+                    <small>Have an account? <a href='{{url_for("sign_in")}}' class="mb-4">Sign
+                            in here</a></small>
                 </div>
-
-                <div class="md-form mb-0">
-                    <i class="fas fa-envelope prefix orange-text"></i>
-                    <label style='color:orangered' for="orangeForm-name">Your email</label>
-                    {% if signup_form.email.errors %}
-                    {{ signup_form.email(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
-                    <div class="invalid-feedback">
-                        {% for error in signup_form.email.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ signup_form.email(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
-                    {% endif %}
+                <hr>
+                <div class="mb-3">
+                    {% include 'LoginButtons/facebookButton.html' %}
+                    {% include 'LoginButtons/githubButton.html' %}
                 </div>
-
-                <div class="md-form mb-0">
-                    <i class="fas fa-lock prefix orange-text"></i>
-                    <label style='color:orangered' for="orangeForm-name">Your password</label>
-                    {% if signup_form.password.errors %}
-                    {{ signup_form.password(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="password", id="orangeForm-name", class='form-control is-invalid') }}
-                    <div class="invalid-feedback">
-                        {% for error in signup_form.password.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ signup_form.password(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="password", id="orangeForm-name", class='form-control validate') }}
-                    {% endif %}
-                </div>
-
-                <div class="md-form mb-0">
-                    <i class="fas fa-lock prefix orange-text"></i>
-                    <label style='color:orangered' for="orangeForm-name">Confirm password</label>
-                    {% if signup_form.pass_confirm.errors %}
-                    {{ signup_form.pass_confirm(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="password", id="orangeForm-name", class='form-control is-invalid') }}
-                    <div class="invalid-feedback">
-                        {% for error in signup_form.pass_confirm.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    {{ signup_form.pass_confirm(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="password", id="orangeForm-name", class='form-control validate') }}
-                    {% endif %}
-                </div>
-
-                <div class="text-center mt-3">
-                    {{ signup_form.submit(style='color:white', class='loginBtn btn-deep-orange') }}
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
+
+{% endblock content %}

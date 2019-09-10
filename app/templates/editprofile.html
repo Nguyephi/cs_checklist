@@ -3,47 +3,53 @@
 <div class="d-flex justify-content-center">
 
     <div class="card w-75">
-        <div class="row container">
-            <div class="col-md-3 edit-profile-avatar">
-                <img height='100px' width='100px' src='{{current_user.profile_pic}}' class="rounded-circle"
-                    alt='{{ current_user.name }}'>
+        <div class="row container py-3">
+            <div class="col-md-3 edit-profile-avatar" style="border-right: 1px solid lightgrey;">
+                {% if provider.provider == 'facebook' or provider.provider == 'github' %}
+                <img height='100px' width='100px' src="{{current_user.profile_pic}}" class="rounded-circle"
+                    alt="{{current_user.name}}">
+                {% else %}
+                <img height='100px' width='100px'
+                    src="{{url_for('static', filename='img/' + current_user.profile_pic) }}" class="rounded-circle"
+                    alt="{{current_user.name}}">
+                {% endif %}
             </div>
             <div class="col-md-9">
                 <form method='POST' class='container'>
                     {{ form.hidden_tag() }}
 
-                    <div class="md-form mb-0">
-                        <i class="fas fa-user prefix orange-text"></i>
-                        <label style='color:orangered' for="orangeForm-name">Your name</label>
+                    <div class="md-form mb-0 mt-4">
+                        <i class="fas fa-user prefix red-text"></i>
+                        <label style='color:red' for="form-name">Your name</label>
                         {% if form.name.errors %}
-                        {{ form.name(style='margin-bottom:0px; box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid', ) }}
+                        {{ form.name(type="text", id="form-name", class='mb-0 todoInput form-control is-invalid', ) }}
                         <div class="invalid-feedback">
                             {% for error in form.name.errors %}
                             <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                         {% else %}
-                        {{ form.name(style='margin-bottom:0px; box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                        {{ form.name(type="text", id="form-name", class='mb-0 todoInput form-control validate') }}
                         {% endif %}
                     </div>
 
                     <div class="md-form mb-0">
-                        <i class="fas fa-envelope prefix orange-text"></i>
-                        <label style='color:orangered' for="orangeForm-name">Your email</label>
+                        <i class="fas fa-envelope prefix red-text"></i>
+                        <label style='color:red' for="form-name">Your email</label>
                         {% if form.email.errors %}
-                        {{ form.email(style='margin-bottom:0px; box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
+                        {{ form.email(type="text", id="form-name", class='mb-0 todoInput form-control is-invalid') }}
                         <div class="invalid-feedback">
                             {% for error in form.email.errors %}
                             <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                         {% else %}
-                        {{ form.email(style='margin-bottom:0px; box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                        {{ form.email(type="text", id="form-name", class='mb-0 todoInput form-control validate') }}
                         {% endif %}
                     </div>
 
                     <div class="text-center my-3">
-                        {{ form.submit(style='color:white', class='loginBtn btn-deep-orange') }}
+                        {{ form.submit(style='color:white', class='btn btn-red') }}
                     </div>
                 </form>
             </div>

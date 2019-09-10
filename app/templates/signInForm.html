@@ -1,49 +1,82 @@
-<form method='POST' style="width:45%">
-    <p class="h4 text-center pt-4">Log In</p>
-    <div class='text-center mr-5' style="color: red;">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul style='list-style: none;' class=flashes>
-            {% for message in messages %}
-            <li><i>{{ message }}</i></li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-    </div>
-    <hr class="pb-4">
-    {{ signin_form.hidden_tag() }}
-    <div class="md-form">
-        <i class="fas fa-user prefix orange-text"></i>
-        <label style='color:orangered' for="orangeForm-name">Your name</label>
-        {% if signin_form.name.errors %}
-        {{ signin_form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
-        <div class="invalid-feedback">
-            {% for error in signin_form.name.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-        </div>
-        {% else %}
-        {{ signin_form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
-        {% endif %}
-    </div>
+{% extends 'base.html' %}
+{% block content %}
 
-    <div class="md-form">
-        <i class="fas fa-lock prefix orange-text"></i>
-        <label style='color:orangered' for="orangeForm-name">Your password</label>
-        {% if signin_form.password.errors %}
-        {{ signin_form.password(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="password", id="orangeForm-name", class='form-control is-invalid') }}
-        <div class="invalid-feedback">
-            {% for error in signin_form.password.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
+<div class='row'>
+    <div class='col-lg-6 pr-0'>
+        <div class="mb-5">
+            {% include 'about.html' %}
         </div>
-        {% else %}
-        {{ signin_form.password(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="password", id="orangeForm-name", class='form-control validate') }}
-        {% endif %}
     </div>
+    <div class='col-lg-6 container'>
+        <div style="width:90%; margin-bottom: 50px;" class="card">
+            <div style='display: flex;justify-content: center;' class="card-body p-0">
+                <form method='POST' style="width:45%">
+                    <p class="h4 text-center pt-4">Log In</p>
+                    <hr>
+                    <div>
+                        <div class='text-center mr-5 w-100'>
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                            {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            {% endwith%}
+                        </div>
+                    </div>
+                    {{ signin_form.hidden_tag() }}
+                    <div class="md-form">
+                        <i class="fas fa-user prefix red-text"></i>
+                        <label style='color:red' for="form-name">Your name</label>
+                        {% if signin_form.name.errors %}
+                        {{ signin_form.name(type="text", id="form-name", class='todoInput form-control is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in signin_form.name.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ signin_form.name(type="text", id="form-name", class='todoInput form-control validate') }}
+                        {% endif %}
+                    </div>
 
-    <div class="text-center py-4 mt-3">
-        {{ signin_form.submit(style='color:black;', class='btn btn-deep-orange') }}
+                    <div class="md-form">
+                        <i class="fas fa-lock prefix red-text"></i>
+                        <label style='color:red' for="form-name">Your password</label>
+                        {% if signin_form.password.errors %}
+                        {{ signin_form.password(type="password", id="form-name", class='todoInput form-control is-invalid') }}
+                        <div class="invalid-feedback">
+                            {% for error in signin_form.password.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ signin_form.password(type="password", id="form-name", class='todoInput form-control validate') }}
+                        {% endif %}
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button style='width: 210px;text-align: center;' type='submit'
+                            class='loginBtn loginBtn--coderschool'
+                            onclick="window.location.href='{{ url_for('sign_in') }}';">Sign in</button>
+                    </div>
+                </form>
+            </div>
+            <div class="text-center mb-2">
+                <div>
+                    <small>Don't have an account? <a href='{{url_for("sign_up")}}' class="mb-4">Sign
+                            up here</a></small>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    {% include 'LoginButtons/facebookButton.html' %}
+                    {% include 'LoginButtons/githubButton.html' %}
+                </div>
+            </div>
+        </div>
     </div>
-</form>
+</div>
+
+{% endblock content %}

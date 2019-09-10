@@ -7,9 +7,21 @@
                 {% include 'HomePage/currentUserCard.html' %}
             </div>
         </div>
+        {% if admin %}
+        <div class='mt-3 d-flex justify-content-center'>
+            <button class="btn btn-color w-50" type="button" data-toggle="collapse" data-target="#addTodo"
+                aria-expanded="true" aria-controls="addTodo">
+                Add to checklist
+            </button>
+        </div>
+        <div class="collapse show" id="addTodo">
+            <div class="d-flex justify-content-center">
+                {% include 'Admin/addTodo.html' %}
+            </div>
+        </div>
+        {% endif %}
         {% include 'HomePage/checkList.html' %}
-
-        <a href="{{ url_for('logout') }}">Log out</a>
     </div>
 </div>
+
 {% endblock content %}

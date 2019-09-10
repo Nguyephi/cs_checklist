@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='d-flex justify-content-center container mx-5'>
+    <div class="card" style="width: 100%">
+        <div class="card-body">
+            <h5 class="card-title text-center"><u>Student progress</u></h5>
+            <ul style="list-style: none;">
+                {% for user in users %}
+                <li>
+                    <button class="btn btn-color w-100" type="button" data-toggle="collapse"
+                        data-target="#students-{{user.id}}" aria-expanded="true" aria-controls="students-{{user.id}}">
+                        {{user.name}}
+                    </button>
+                    <div class="collapse" id="students-{{user.id}}">
+                        <div class="d-flex justify-content-center">
+                            <div class="card my-4" style="width: 80%">
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush w-100">
+                                        {% for todo in todos%}
+                                        <li class="list-group-item">
+                                            {% for i in lst_td if i.user_id == user.id and i.todo_id == todo.id %}
+                                            <strike>{{todo.task.capitalize()}}</strike>
+                                            {% else %}
+                                            {{todo.task.capitalize()}}
+                                            {% endfor %}
+                                            <ul>
+                                                {% for subTodo in todo.subTask %}
+                                                <li>
+                                                    {% for i in lst_sub_td if i.user_id == user.id and i.sub_todo_id == subTodo.id %}
+                                                    <strike>{{subTodo.subTask.capitalize()}}</strike>
+                                                    {% else %}
+                                                    {{subTodo.subTask.capitalize()}}
+                                                    {% endfor %}
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -11,8 +11,12 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(500), unique=True)
     password = db.Column(db.String(255))
-    profile_pic = db.Column(db.String)
+    profile_pic = db.Column(db.String, default=('default.png'))
     is_admin = db.Column(db.Boolean, default=False)
+    bio = db.Column(db.String)
+    oauth = db.relationship('OAuth', backref='user', cascade='all,delete')
+    is_done = db.relationship(
+        'isTodosDone', backref='user', cascade='all,delete', lazy=True)
 
     def __repr__(self):
         return '<User {}self.name'
@@ -27,7 +31,6 @@ class User(UserMixin, db.Model):
 class OAuth(OAuthConsumerMixin, db.Model):
     provider_user_id = db.Column(db.String(256), unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
-    user = db.relationship(User)
 
 
 class Token(db.Model):
@@ -39,14 +42,27 @@ class Token(db.Model):
 
 class Todos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(500))
-    description = db.Column(db.String)
+    task = db.Column(db.String(500))
+    subTask = db.relationship(
+        'SubTodos', backref='todos', cascade="all,delete")
+    is_done = db.relationship(
+        'isTodosDone', backref='todos', cascade='all,delete')
+
+
+class SubTodos(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    subTask = db.Column(db.String)
+    todo_id = db.Column(db.Integer, db.ForeignKey('todos.id'), nullable=False)
+    is_done = db.relationship(
+        'isTodosDone', backref='sub_todos', cascade='all,delete')
 
 
 class isTodosDone(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, )
-    todos_id = db.Column(db.Integer,)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    todo_id = db.Column(db.Integer, db.ForeignKey('todos.id'))
+    sub_todo_id = db.Column(
+        db.Integer, db.ForeignKey('sub_todos.id'))
     is_done = db.Column(db.Boolean, default=False)
 
 
