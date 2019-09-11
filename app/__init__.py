@@ -1,6 +1,5 @@
 import os
 from flask import Flask, render_template, session, request, redirect, url_for, request, jsonify, flash
-from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user, login_manager, current_user, logout_user, login_required
 from flask_migrate import Migrate
