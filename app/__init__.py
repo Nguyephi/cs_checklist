@@ -14,7 +14,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'a super duper key'
+app.config['SECRET_KEY'] = os.environ['FLASK_SECRET_KEY']
 app.config.from_object(Config)
 app.register_blueprint(blueprint, url_prefix="/login")
 app.cli.add_command(create_db)
@@ -54,7 +54,7 @@ def sign_in():
     # no errors from forms. need to fix this.
     if request.method == 'POST':
         if signin_form.validate_on_submit():
-            name = signin_form.name.data.strip()
+            name = signin_form.name.data
             log_user = User.query.filter_by(name=name).first()
             if log_user is None:
                 flash(
